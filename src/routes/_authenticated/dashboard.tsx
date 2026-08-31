@@ -39,7 +39,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
       { property: "og:description", content: "Live wholesale performance for the TORG team." },
     ],
   }),
-  component: Dashboard;
+  component: Dashboard,
 });
 
 const RANGES = [
