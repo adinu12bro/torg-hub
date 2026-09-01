@@ -57,7 +57,7 @@ function Pos() {
   const [customerId, setCustomerId] = useState<string>("walkin");
   const [walkInName, setWalkInName] = useState("");
   const [orderDiscount, setOrderDiscount] = useState("");
-  const [method, setMethod] = useState(PAYMENT_METHODS[0]);
+  const [method, setMethod] = useState<string>("Cash");
   const [tendered, setTendered] = useState("");
   const [reference, setReference] = useState("");
   const [notes, setNotes] = useState("");
