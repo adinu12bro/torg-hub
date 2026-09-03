@@ -79,12 +79,24 @@ function Inventory() {
       const { data, error } = await supabase
         .from("inventory_movements")
         .select(
-          "id, previous_qty, qty_change, new_qty, movement_type, reason, unit_cost, created_at, products(name), product_variants(sku, color, size), profiles:user_id(full_name)",
+          "id, user_id, previous_qty, qty_change, new_qty, movement_type, reason, unit_cost, created_at, products(name), product_variants(sku, color, size)",
         )
         .order("created_at", { ascending: false })
         .limit(200);
       if (error) throw error;
-      return data;
+      const ids = [...new Set(data.map((m) => m.user_id).filter(Boolean))] as string[];
+      const names = new Map<string, string>();
+      if (ids.length) {
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("id, full_name")
+          .in("id", ids);
+        for (const p of profiles ?? []) names.set(p.id, p.full_name);
+      }
+      return data.map((m) => ({
+        ...m,
+        user_name: (m.user_id ? names.get(m.user_id) : undefined) ?? "System",
+      }));
     },
   });
 
