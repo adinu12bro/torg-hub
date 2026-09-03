@@ -364,7 +364,7 @@ function Inventory() {
                           <td className="num text-right">{m.new_qty}</td>
                           <td className="text-xs text-muted-foreground">{m.reason ?? "—"}</td>
                           <td className="text-xs text-muted-foreground">
-                            {m.profiles?.full_name || "System"}
+                            {m.user_name}
                           </td>
                         </tr>
                       ))}
